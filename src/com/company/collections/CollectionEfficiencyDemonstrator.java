@@ -29,7 +29,6 @@ public class CollectionEfficiencyDemonstrator {
     public static final int COLLECTION_SIZE_100000 = 100000;
     public static final int COLLECTION_SIZE_1000000 = 1000000;
     public static final int[] collectionSize = {COLLECTION_SIZE_10000, COLLECTION_SIZE_100000, COLLECTION_SIZE_1000000};
-    //public static final int[] collectionSize = {COLLECTION_SIZE_10000};
 
     private HashMap<String, CollectionPerformanceMeasurer> testData = new HashMap<>();
 
@@ -99,14 +98,14 @@ public class CollectionEfficiencyDemonstrator {
         CollectionPerformanceMeter collectionPerformanceMeter = new CollectionPerformanceMeter();
         testData.keySet().stream().
                 forEach(c ->
-                {testData.get(c).getMethodDescriptorMap().keySet().
-                        forEach(m ->
-                        {CollectionPerformanceMeasurer collectionPerformanceMeasurer = testData.get(c);
-                            MethodDescriptor methodDescriptor = collectionPerformanceMeasurer.getMethodDescriptorMap().get(m);
-                            String methodName = methodDescriptor.getMethodName();
-                            collectionPerformanceMeasurer.setMethodResult(methodName, collectionPerformanceMeter.
-                                    measurePerformance(collectionPerformanceMeasurer.getAbstractCollection(),
-                                    methodDescriptor, collectionSize, measuringQuantity));});});
+                        testData.get(c).getMethodDescriptorMap().keySet().
+                                forEach(m ->
+                                {CollectionPerformanceMeasurer collectionPerformanceMeasurer = testData.get(c);
+                                    MethodDescriptor methodDescriptor = collectionPerformanceMeasurer.getMethodDescriptorMap().get(m);
+                                    String methodName = methodDescriptor.getMethodName();
+                                    collectionPerformanceMeasurer.setMethodResult(methodName, collectionPerformanceMeter.
+                                            measurePerformance(collectionPerformanceMeasurer.getAbstractCollection(),
+                                            methodDescriptor, collectionSize, measuringQuantity));}));
     }
 
     private String[][] prepareTableData(int collectionSize) {

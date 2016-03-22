@@ -34,7 +34,7 @@ public class CollectionPerformanceMeasurer {
     }
 
     public void addMethodDescriptor(String methodName,
-                                    MethodDescriptor.MethodArgumentType methodArgumentType,
+                                    MethodDescriptor.MethodArgumentType[] methodArgumentType,
                                     boolean useCollectionAsObjectMethod,
                                     boolean needDataPrePopulate) {
         methodDescriptorMap.put(methodName,
@@ -43,7 +43,7 @@ public class CollectionPerformanceMeasurer {
     }
 
     public void addMethodDescriptor(String methodName,
-                                    MethodDescriptor.MethodArgumentType methodArgumentType,
+                                    MethodDescriptor.MethodArgumentType[] methodArgumentType,
                                     boolean needDataPrePopulate) {
         addMethodDescriptor(methodName, methodArgumentType, true, needDataPrePopulate);
     }

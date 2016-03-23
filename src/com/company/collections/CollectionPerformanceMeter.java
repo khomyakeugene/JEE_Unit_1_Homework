@@ -102,8 +102,8 @@ public class CollectionPerformanceMeter {
         reInitMeasureParameters(collectionSize, measuringQuantity);
 
         Object object = methodDescriptor.isCollectionAsObjectMethod() ? collection : this;
-
-
+        // Are threre subsidiary methods as a "iterator" for "iterator.remove"?
+        if (methodDescriptor.ge)
         Method method = methodDescriptor.getMethod(object);
 
         // Pre-populate data if necessary

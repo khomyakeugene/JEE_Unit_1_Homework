@@ -98,6 +98,10 @@ public class MethodDescriptor {
         
         this.methodArgumentType = methodArgumentType[methodArgumentType.length-1];
     }
+    
+    public MethodArgumentType getSubsidiaryMethodArgumentTypes() {
+        return subsidiaryMethodArgumentTypes;
+    }
 
     public Method getMethod(Object object) {
         return getMethodArgumentType().getMethod(object, getMethodName());

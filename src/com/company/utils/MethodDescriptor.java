@@ -17,8 +17,8 @@ public class MethodDescriptor {
             }
 
             @Override
-            public Object invokeMethod(Object object, String methodName, Integer argument) {
-                return SelfDescribingObjectService.invokeMethod(object, methodName, new Object[] {});
+            public Object invokeMethod(Object object, Method method, Integer argument) {
+                return SelfDescribingObjectService.invokeMethod(object, method, new Object[] {});
             }
         },
 
@@ -28,8 +28,8 @@ public class MethodDescriptor {
                 return new Class[]{Object.class};
             }
             
-            public Object invokeMethod(Object object, String methodName, Integer argument) {
-                return SelfDescribingObjectService.invokeMethod(object, methodName, argument);
+            public Object invokeMethod(Object object, Method method, Integer argument) {
+                return SelfDescribingObjectService.invokeMethod(object, method, argument);
             }
         },
 
@@ -40,8 +40,8 @@ public class MethodDescriptor {
             }
             
             @Override
-            public Object invokeMethod(Object object, String methodName, Integer argument) {
-                return SelfDescribingObjectService.invokeMethod(object, methodName, argument.intValue());
+            public Object invokeMethod(Object object, Method method, Integer argument) {
+                return SelfDescribingObjectService.invokeMethod(object, method, argument.intValue());
             }
         },
 
@@ -52,8 +52,8 @@ public class MethodDescriptor {
             }
             
             @Override
-            public Object invokeMethod(Object object, String methodName, Integer argument) {
-                return SelfDescribingObjectService.invokeMethod(object, methodName, argument.intValue(), argument);
+            public Object invokeMethod(Object object, Method method, Integer argument) {
+                return SelfDescribingObjectService.invokeMethod(object, method, argument.intValue(), argument);
             }
         };
 
@@ -63,7 +63,11 @@ public class MethodDescriptor {
             return SelfDescribingObjectService.searchPublicMethod(object, methodName, buildParameterTypes());
         }
         
-        public abstract Object invokeMethod(Object object, String methodName, Integer argument);
+        public abstract Object invokeMethod(Object object, Method method, Integer argument);
+
+        public Object invokeMethod(Object object, String methodName, Integer argument) {
+            return invokeMethod(object, getMethod(object, methodName), argument);
+        }
     }
 
     private String methodName;

@@ -108,8 +108,8 @@ public class CollectionEfficiencyDemonstrator {
                                 forEach(m ->
                                 {CollectionPerformanceMeasurer collectionPerformanceMeasurer = testData.get(c);
                                     MethodDescriptor methodDescriptor = collectionPerformanceMeasurer.getMethodDescriptorMap().get(m);
-                                    String methodName = methodDescriptor.getMethodName();
-                                    collectionPerformanceMeasurer.setMethodResult(methodName, collectionPerformanceMeter.
+                                    String fullMethodName = methodDescriptor.getFullMethodName();
+                                    collectionPerformanceMeasurer.setMethodResult(fullMethodName, collectionPerformanceMeter.
                                             measurePerformance(collectionPerformanceMeasurer.getAbstractCollection(),
                                             methodDescriptor, collectionSize, measuringQuantity));}));
     }

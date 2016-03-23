@@ -68,7 +68,7 @@ public class CollectionPerformanceMeter {
     }
 
     private int contentUpperLimit() {
-        return collection.size() * RandomDataGenerator.DEFAULT_UPPER_INT_LIMIT_MULTIPLIER;
+        return indexUpperLimit() * RandomDataGenerator.DEFAULT_UPPER_INT_LIMIT_MULTIPLIER;
     }
 
     private int getMethodUpperLimit(MethodDescriptor methodDescriptor) {

@@ -43,6 +43,10 @@ public class MethodDescriptor {
         public Method getMethod(Object object, String methodName) {
             return SelfDescribingObjectService.searchPublicMethod(object, methodName, buildParameterTypes());
         }
+        
+        public Object invokeMethod(Object object, Method method, Object... args) {
+            return null;
+        }
     }
 
     private String methodName;
@@ -93,16 +97,6 @@ public class MethodDescriptor {
         subsidiaryMethodArgumentTypes = Arrays.copyOf(methodArgumentType, methodArgumentType.length-1);
         
         this.methodArgumentType = methodArgumentType[methodArgumentType.length-1];
-    }
-
-    public Object invokeMethod(Object object, Method method, Object... args) {
-        try {
-            return method.invoke(object, args);
-        } catch (IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     public Method getMethod(Object object) {

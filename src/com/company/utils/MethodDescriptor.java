@@ -1,6 +1,8 @@
 package com.company.utils;
 
-import java.lang.reflect.InvocationTargetException;
+package utils;
+
+import java.util.Arrays;
 import java.lang.reflect.Method;
 
 /**
@@ -63,11 +65,11 @@ public class MethodDescriptor {
             return SelfDescribingObjectService.searchPublicMethod(object, methodName, buildParameterTypes());
         }
         
-        public abstract Object invokeMethod(Object object, Method method, Integer argument);
-
         public Object invokeMethod(Object object, String methodName, Integer argument) {
             return invokeMethod(object, getMethod(object, methodName), argument);
         }
+
+        public abstract Object invokeMethod(Object object, Method method, Integer argument);
     }
 
     private String methodName;
@@ -126,10 +128,10 @@ public class MethodDescriptor {
     
     public Object invokeSubsidiaryMethods(Object object, Integer argument) {
         // Execute all subsidiary methods, getting as a result "main" object
-        for (i = 0; i < subsidiaryMethodNames.length; i++) {
+        for (int i = 0; i < subsidiaryMethodNames.length; i++) {
             object = subsidiaryMethodArgumentTypes[i].invokeMethod(object, subsidiaryMethodNames[i], argument);
         }
 
-        retrun object;
+        return object;
     }
 }

@@ -48,14 +48,15 @@ public class MethodDescriptor {
     private String methodName;
     private String fullMethodName;
     private String[] subsidiaryMethodNames;
-    private MethodArgumentType[] methodArgumentType;
+    private MethodArgumentType[] subsidiaryMethodArgumentTypes;
+    private MethodArgumentType methodArgumentType;
     private boolean collectionAsObjectMethod;
     private boolean dataPrePopulate;
 
     public MethodDescriptor(String fullMethodName, MethodArgumentType[] methodArgumentType, boolean collectionAsObjectMethod, boolean dataPrePopulate) {
         setFullMethodName(fullMethodName);
+        setMethodArgumentType(methodArgumentType);
         
-        this.methodArgumentType = methodArgumentType;
         this.collectionAsObjectMethod = collectionAsObjectMethod;
         this.dataPrePopulate = dataPrePopulate;
     }
@@ -85,7 +86,13 @@ public class MethodDescriptor {
     }
 
     public MethodArgumentType getMethodArgumentType() {
-        return methodArgumentType[methodArgumentType.length-1];
+        return this.methodArgumentType;
+    }
+
+    public void setMethodArgumentType(MethodArgumentType[] methodArgumentType) {
+        subsidiaryMethodArgumentTypes = Arrays.copyOf(methodArgumentType, methodArgumentType.length-1);
+        
+        this.methodArgumentType = methodArgumentType[methodArgumentType.length-1];
     }
 
     public Object invokeMethod(Object object, Method method, Object... args) {
@@ -99,17 +106,6 @@ public class MethodDescriptor {
     }
 
     public Method getMethod(Object object) {
-            /*
-            String[] methodNames = methodName.split(METHOD_NAME_REGEX_DELIMITER);
-
-            // All the names before the last one interpret as methods which are returning the next-in-chain <object>
-            for (int i = 0; i < methodNames.length-1; i++) {
-                Method method = methodArgumentType[methodArgumentType.length-1].getMethod(object, methodNames[i]);
-                object = method.invoke(object);
-
-                methodArgumentType[i].getMethod(object, methodNames[i]).
-            }
-    */
         return getMethodArgumentType().getMethod(object, getMethodName());
     }
 }

@@ -88,9 +88,9 @@ public class MethodDescriptor {
         return methodArgumentType[methodArgumentType.length-1];
     }
 
-    public Object invokeMethod(Object object, Method method) {
+    public Object invokeMethod(Object object, Method method, Object... args) {
         try {
-            return method.invoke(object);
+            return method.invoke(object, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

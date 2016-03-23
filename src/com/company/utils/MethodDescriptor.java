@@ -1,9 +1,7 @@
 package com.company.utils;
 
-package utils;
-
-import java.util.Arrays;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 /**
  * Created by Yevgen on 19.03.2016 as a part of the project "JEE_Homework_1".
@@ -101,7 +99,7 @@ public class MethodDescriptor {
     }
 
     public void setFullMethodName(String fullMethodName) {
-        String[] mn = methodName.split(fullMethodName);
+        String[] mn = fullMethodName.split(METHOD_NAME_REGEX_DELIMITER);
         subsidiaryMethodNames = Arrays.copyOf(mn, mn.length-1);
         
         this.fullMethodName = fullMethodName;
@@ -128,8 +126,12 @@ public class MethodDescriptor {
     
     public Object invokeSubsidiaryMethods(Object object, Integer argument) {
         // Execute all subsidiary methods, getting as a result "main" object
+  //      Object startObject = object;
         for (int i = 0; i < subsidiaryMethodNames.length; i++) {
             object = subsidiaryMethodArgumentTypes[i].invokeMethod(object, subsidiaryMethodNames[i], argument);
+            // return object;
+ //           Iterator<Integer> it = ((ArrayList<Integer>)(startObject )).iterator();
+   //         return it;
         }
 
         return object;

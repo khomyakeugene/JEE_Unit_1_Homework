@@ -10,7 +10,7 @@ public class ExecutionTimeMeasurer {
     public static long getNanoTime(Object object, Method method) {
         long start = System.nanoTime();
         try {
-            method.invoke(object);
+            method.invoke(object, new Object[] {});
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }

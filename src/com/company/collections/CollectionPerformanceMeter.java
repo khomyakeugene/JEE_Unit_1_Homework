@@ -104,8 +104,15 @@ public class CollectionPerformanceMeter {
         // Also execute subsidiary methods, if there are some, getting as a result "main" object
         Object object = methodDescriptor.invokeSubsidiaryMethods(methodDescriptor.isCollectionAsObjectMethod() ? collection : this, 
                             randomDataGenerator.generateRandomInt(indexUpperLimit()));
+/*
+        if (object instanceof ArrayList && methodDescriptor.getFullMethodName() == "iterator.remove") {
+            Iterator it = ((ArrayList)object).iterator();
+            object = ((ArrayList)object).iterator();
+        }
+*/
         // "Main" method
         Method method = methodDescriptor.getMethod(object);
+        method.setAccessible(true);
 
         // Pre-populate data if necessary
         if (methodDescriptor.isDataPrePopulate()) {
@@ -118,7 +125,7 @@ public class CollectionPerformanceMeter {
 
         long[] results = new long[measuringQuantity];
         boolean tryToCallGarbageCollector = false;
-        Utils.printMessage(collection, String.format(MEASURE_PERFORMANCE_PATTERN, collectionSize, method.getName()));
+        Utils.printMessage(collection, String.format(MEASURE_PERFORMANCE_PATTERN, collectionSize, methodDescriptor.getFullMethodName()));
         for (int i = 0; i < measuringQuantity; i++) {
             Utils.rePrintLine(String.format(ATTEMPT_PATTERN, i+1));
             Integer randomInputData = generateRandomInteger(getMethodUpperLimit(methodDescriptor));

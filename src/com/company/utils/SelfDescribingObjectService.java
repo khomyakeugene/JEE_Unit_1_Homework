@@ -7,7 +7,6 @@ import java.lang.reflect.InvocationTargetException;
  * Created by Yevgen on 10.01.2016.
  */
 public class SelfDescribingObjectService {
-
     public static Method searchMethod(String className, String methodName, Class[] parameterTypes, boolean onlyPublic) {
         Method method = null;
 

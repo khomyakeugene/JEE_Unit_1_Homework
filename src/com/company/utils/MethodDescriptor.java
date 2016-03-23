@@ -46,12 +46,15 @@ public class MethodDescriptor {
     }
 
     private String methodName;
+    private String fullMethodName;
+    private String[] subsidiaryMethodNames;
     private MethodArgumentType[] methodArgumentType;
     private boolean collectionAsObjectMethod;
     private boolean dataPrePopulate;
 
-    public MethodDescriptor(String methodName, MethodArgumentType[] methodArgumentType, boolean collectionAsObjectMethod, boolean dataPrePopulate) {
-        this.methodName = methodName;
+    public MethodDescriptor(String fullMethodName, MethodArgumentType[] methodArgumentType, boolean collectionAsObjectMethod, boolean dataPrePopulate) {
+        setFullMethodName(fullMethodName);
+        
         this.methodArgumentType = methodArgumentType;
         this.collectionAsObjectMethod = collectionAsObjectMethod;
         this.dataPrePopulate = dataPrePopulate;
@@ -65,10 +68,20 @@ public class MethodDescriptor {
         return dataPrePopulate;
     }
 
-    public String getMethodName() {
-        String[] methodNames = methodName.split(METHOD_NAME_REGEX_DELIMITER);
+    public String getFullMethodName() {
+        return this.fullMethodName;
+    }
 
-        return methodNames[methodNames.length-1];
+    public void setFullMethodName(String fullMethodName) {
+        String[] mn = methodName.split(fullMethodName);
+        subsidiaryMethodNames = Arrays.copyOf(mn, mn.length-1);
+        
+        this.fullMethodName = fullMethodName;
+        this.methodName = mn[mn.length-1];
+    }
+
+    public String getMethodName() {
+        return this.methodName;
     }
 
     public MethodArgumentType getMethodArgumentType() {

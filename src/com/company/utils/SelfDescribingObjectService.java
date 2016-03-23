@@ -33,4 +33,14 @@ public class SelfDescribingObjectService {
     public static Method searchPublicMethod(Object object, String methodName, Class[] parameterTypes) {
         return searchMethod(object, methodName, parameterTypes, true);
     }
+    
+    public static Object invokeMethod(Object object, Method method, Object... args) {
+        try {
+            return method.invoke(object, args);
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

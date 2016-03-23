@@ -99,11 +99,16 @@ public class MethodDescriptor {
         this.methodArgumentType = methodArgumentType[methodArgumentType.length-1];
     }
     
-    public MethodArgumentType getSubsidiaryMethodArgumentTypes() {
-        return subsidiaryMethodArgumentTypes;
-    }
-
     public Method getMethod(Object object) {
         return getMethodArgumentType().getMethod(object, getMethodName());
+    }
+    
+    public Object invokeSubsidiaryMethods(Object object, Integer argument) {
+        // Are threre subsidiary methods as a "iterator" for "iterator.remove"?
+        if (methodDescriptor.subsidiaryMethodArgumentTypes.length > 0) {
+            // Execute all subsidiary methods, getting as a result "main" object
+        }
+        
+        retrun object;
     }
 }

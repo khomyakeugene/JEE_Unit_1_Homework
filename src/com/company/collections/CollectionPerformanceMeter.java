@@ -101,13 +101,10 @@ public class CollectionPerformanceMeter {
         // Re-new measure parameters
         reInitMeasureParameters(collectionSize, measuringQuantity);
 
-        Object object = methodDescriptor.isCollectionAsObjectMethod() ? collection : this;
-        // Are threre subsidiary methods as a "iterator" for "iterator.remove"?
-        if (methodDescriptor.getSubsidiaryMethodArgumentTypes().length > 0) {
-            // Prepare test data for subsidiary methods
-            // Execute subsidiary methods, getting as a result "main" object
-        }
-        // "Main" methods
+        // Also execute subsidiary methods, if there are some, getting as a result "main" object
+        Object object = methodDescriptor.invokeSubsidiaryMethods(methodDescriptor.isCollectionAsObjectMethod() ? collection : this, 
+                            randomDataGenerator.generateRandomInt(indexUpperLimit()));
+        // "Main" method
         Method method = methodDescriptor.getMethod(object);
 
         // Pre-populate data if necessary

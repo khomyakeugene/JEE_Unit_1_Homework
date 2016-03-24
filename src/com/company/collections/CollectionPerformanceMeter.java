@@ -101,6 +101,15 @@ public class CollectionPerformanceMeter {
         // Re-new measure parameters
         reInitMeasureParameters(collectionSize, measuringQuantity);
 
+        // Pre-populate data if necessary
+        if (methodDescriptor.isDataPrePopulate()) {
+            if (collection.size() != collectionSize) {
+                populateCollection();
+            }
+        } else {
+            collection.clear();
+        }
+
         // Also execute subsidiary methods, if there are some, getting as a result "main" object
         Object object = methodDescriptor.invokeSubsidiaryMethods(methodDescriptor.isCollectionAsObjectMethod() ? collection : this, 
                             randomDataGenerator.generateRandomInt(indexUpperLimit()));
@@ -113,15 +122,6 @@ public class CollectionPerformanceMeter {
         // "Main" method
         Method method = methodDescriptor.getMethod(object);
         method.setAccessible(true);
-
-        // Pre-populate data if necessary
-        if (methodDescriptor.isDataPrePopulate()) {
-            if (collection.size() != collectionSize) {
-                populateCollection();
-            }
-        } else {
-            collection.clear();
-        }
 
         long[] results = new long[measuringQuantity];
         boolean tryToCallGarbageCollector = false;

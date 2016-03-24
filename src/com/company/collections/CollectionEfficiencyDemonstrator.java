@@ -1,9 +1,6 @@
 package com.company.collections;
 
-import com.company.utils.MethodDescriptor;
-import com.company.utils.TableBuilder;
-import com.company.utils.TextFile;
-import com.company.utils.Utils;
+import com.company.utils.*;
 
 import java.util.*;
 
@@ -13,6 +10,7 @@ import java.util.*;
 public class CollectionEfficiencyDemonstrator {
     public static final String HEADER_PATTERN = "Elements: %d, Time: ns";
 
+    public static final String NEXT_METHOD_NAME = "next";
     public static final String ADD_METHOD_NAME = "add";
     public static final String GET_METHOD_NAME = "get";
     public static final String REMOVE_METHOD_NAME = "remove";
@@ -37,73 +35,73 @@ public class CollectionEfficiencyDemonstrator {
         CollectionPerformanceMeasurer arrayListPerformanceMeasurer =
                 new CollectionPerformanceMeasurer(new ArrayList<>());
         arrayListPerformanceMeasurer.addMethodDescriptor(ADD_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT_AND_ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT_AND_ONE_OBJECT}, true);
         arrayListPerformanceMeasurer.addMethodDescriptor(GET_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT}, true);
         arrayListPerformanceMeasurer.addMethodDescriptor(REMOVE_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT}, true);
         arrayListPerformanceMeasurer.addMethodDescriptor(CONTAINS_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         arrayListPerformanceMeasurer.addMethodDescriptor(POPULATE_COLLECTION_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.NO_ARGUMENTS}, false, false);
+                new MethodArgumentType[] {MethodArgumentType.NO_ARGUMENTS}, false, false);
         arrayListPerformanceMeasurer.addMethodDescriptor(LIST_ITERATOR_ADD_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT,
-                                MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
-        arrayListPerformanceMeasurer.addMethodDescriptor(ITERATOR_REMOVE_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.NO_ARGUMENTS,
-                                MethodDescriptor.MethodArgumentType.NO_ARGUMENTS}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT,
+                                MethodArgumentType.ONE_OBJECT}, true);
+        arrayListPerformanceMeasurer.addMethodDescriptor(ITERATOR_REMOVE_METHOD_NAME, NEXT_METHOD_NAME,
+                new MethodArgumentType[] {MethodArgumentType.NO_ARGUMENTS,
+                                MethodArgumentType.NO_ARGUMENTS}, true);
         testData.put(arrayListPerformanceMeasurer.getCollectionName(), arrayListPerformanceMeasurer);
 
         // LinkedList
         CollectionPerformanceMeasurer linkedListPerformanceMeasurer =
                 new CollectionPerformanceMeasurer(new LinkedList<>());
         linkedListPerformanceMeasurer.addMethodDescriptor(ADD_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT_AND_ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT_AND_ONE_OBJECT}, true);
         linkedListPerformanceMeasurer.addMethodDescriptor(GET_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT}, true);
         linkedListPerformanceMeasurer.addMethodDescriptor(REMOVE_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT}, true);
         linkedListPerformanceMeasurer.addMethodDescriptor(CONTAINS_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         linkedListPerformanceMeasurer.addMethodDescriptor(POPULATE_COLLECTION_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.NO_ARGUMENTS}, false, false);
+                new MethodArgumentType[] {MethodArgumentType.NO_ARGUMENTS}, false, false);
         arrayListPerformanceMeasurer.addMethodDescriptor(LIST_ITERATOR_ADD_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_INT,
-                                MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
-        arrayListPerformanceMeasurer.addMethodDescriptor(ITERATOR_REMOVE_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.NO_ARGUMENTS,
-                                MethodDescriptor.MethodArgumentType.NO_ARGUMENTS}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_INT,
+                                MethodArgumentType.ONE_OBJECT}, true);
+        arrayListPerformanceMeasurer.addMethodDescriptor(ITERATOR_REMOVE_METHOD_NAME, NEXT_METHOD_NAME,
+                new MethodArgumentType[] {MethodArgumentType.NO_ARGUMENTS,
+                                MethodArgumentType.NO_ARGUMENTS}, true);
         testData.put(linkedListPerformanceMeasurer.getCollectionName(), linkedListPerformanceMeasurer);
 
         // HashSet
         CollectionPerformanceMeasurer hashSetPerformanceMeasurer =
                 new CollectionPerformanceMeasurer(new HashSet<>());
         hashSetPerformanceMeasurer.addMethodDescriptor(ADD_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         hashSetPerformanceMeasurer.addMethodDescriptor(REMOVE_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         hashSetPerformanceMeasurer.addMethodDescriptor(CONTAINS_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         hashSetPerformanceMeasurer.addMethodDescriptor(POPULATE_COLLECTION_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.NO_ARGUMENTS}, false, false);
+                new MethodArgumentType[] {MethodArgumentType.NO_ARGUMENTS}, false, false);
         testData.put(hashSetPerformanceMeasurer.getCollectionName(), hashSetPerformanceMeasurer);
 
         // TreeSet
         CollectionPerformanceMeasurer treeSetPerformanceMeasurer =
                 new CollectionPerformanceMeasurer(new TreeSet<>());
         treeSetPerformanceMeasurer.addMethodDescriptor(ADD_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         treeSetPerformanceMeasurer.addMethodDescriptor(REMOVE_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         treeSetPerformanceMeasurer.addMethodDescriptor(CONTAINS_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.ONE_OBJECT}, true);
+                new MethodArgumentType[] {MethodArgumentType.ONE_OBJECT}, true);
         treeSetPerformanceMeasurer.addMethodDescriptor(POPULATE_COLLECTION_METHOD_NAME,
-                new MethodDescriptor.MethodArgumentType[] {MethodDescriptor.MethodArgumentType.NO_ARGUMENTS}, false, false);
+                new MethodArgumentType[] {MethodArgumentType.NO_ARGUMENTS}, false, false);
         testData.put(treeSetPerformanceMeasurer.getCollectionName(), treeSetPerformanceMeasurer);
     }
 
    public CollectionEfficiencyDemonstrator() {
-        buildTestData();
+       buildTestData();
     }
 
     private void oneSizeCalculate(int collectionSize, int measuringQuantity) {

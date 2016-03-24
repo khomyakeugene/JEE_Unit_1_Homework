@@ -7,20 +7,24 @@ import java.lang.reflect.InvocationTargetException;
  * Created by Yevgen on 10.01.2016.
  */
 public class SelfDescribingObjectService {
-    public static Method searchMethod(String className, String methodName, Class[] parameterTypes, boolean onlyPublic) {
+    public static Method searchMethod(String className, String methodName, Class<?>[] parameterTypes, boolean onlyPublic) {
         Method method = null;
-
-        try {
-            Class cls = Class.forName(className);
-
+        if (methodName != null) {
             try {
-                method = onlyPublic ? cls.getMethod(methodName, parameterTypes) :
-                        cls.getDeclaredMethod(methodName, parameterTypes);
-            } catch (NullPointerException | SecurityException | NoSuchMethodException e) {
+                Class<?> cls = Class.forName(className);
+
+                try {
+                    method = onlyPublic ? cls.getMethod(methodName, parameterTypes) :
+                            cls.getDeclaredMethod(methodName, parameterTypes);
+                    if (method != null) {
+                        method.setAccessible(true);
+                    }
+                } catch (NullPointerException | SecurityException | NoSuchMethodException e) {
+                    e.printStackTrace();
+                }
+            } catch (NullPointerException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        } catch (NullPointerException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
 
         return method;
@@ -36,7 +40,6 @@ public class SelfDescribingObjectService {
     
     public static Object invokeMethod(Object object, Method method, Object... args) {
         try {
-            method.setAccessible(true);
             return method.invoke(object, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

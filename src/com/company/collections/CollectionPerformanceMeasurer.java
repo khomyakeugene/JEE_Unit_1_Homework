@@ -1,5 +1,6 @@
 package com.company.collections;
 
+import com.company.utils.MethodArgumentType;
 import com.company.utils.MethodDescriptor;
 
 import java.util.AbstractCollection;
@@ -34,18 +35,34 @@ public class CollectionPerformanceMeasurer {
     }
 
     public void addMethodDescriptor(String methodName,
-                                    MethodDescriptor.MethodArgumentType[] methodArgumentType,
+                                    String withoutParametersVoidPreMethodName,
+                                    MethodArgumentType[] methodArgumentType,
                                     boolean useCollectionAsObjectMethod,
                                     boolean needDataPrePopulate) {
         methodDescriptorMap.put(methodName,
-                new MethodDescriptor(methodName, methodArgumentType, useCollectionAsObjectMethod, needDataPrePopulate));
-        methodResultMap.put(methodName, new Long(0));
+                new MethodDescriptor(methodName, withoutParametersVoidPreMethodName, methodArgumentType,
+                        useCollectionAsObjectMethod, needDataPrePopulate));
+        methodResultMap.put(methodName, 0L);
     }
 
     public void addMethodDescriptor(String methodName,
-                                    MethodDescriptor.MethodArgumentType[] methodArgumentType,
+                                    MethodArgumentType[] methodArgumentType,
+                                    boolean useCollectionAsObjectMethod,
                                     boolean needDataPrePopulate) {
-        addMethodDescriptor(methodName, methodArgumentType, true, needDataPrePopulate);
+        addMethodDescriptor(methodName,null, methodArgumentType, useCollectionAsObjectMethod, needDataPrePopulate);
+    }
+
+    public void addMethodDescriptor(String methodName,
+                                    String withoutParametersVoidPreMethodName,
+                                    MethodArgumentType[] methodArgumentType,
+                                    boolean needDataPrePopulate) {
+        addMethodDescriptor(methodName, withoutParametersVoidPreMethodName, methodArgumentType, true, needDataPrePopulate);
+    }
+
+    public void addMethodDescriptor(String methodName,
+                                    MethodArgumentType[] methodArgumentType,
+                                    boolean needDataPrePopulate) {
+        addMethodDescriptor(methodName, null, methodArgumentType, needDataPrePopulate);
     }
 
     public String getCollectionName() {

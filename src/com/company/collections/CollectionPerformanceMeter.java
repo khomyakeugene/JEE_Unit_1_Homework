@@ -1,9 +1,6 @@
 package com.company.collections;
 
-import com.company.utils.ExecutionTimeMeasurer;
-import com.company.utils.MethodDescriptor;
-import com.company.utils.RandomDataGenerator;
-import com.company.utils.Utils;
+import com.company.utils.*;
 
 import java.lang.reflect.Method;
 import java.util.AbstractCollection;
@@ -30,7 +27,7 @@ public class CollectionPerformanceMeter {
     }
 
     public CollectionPerformanceMeter() {
-        this (null, 0, 0);
+        this(null, 0, 0);
     }
 
     public void setCollectionSize(int collectionSize) {
@@ -111,44 +108,41 @@ public class CollectionPerformanceMeter {
         }
 
         // Also execute subsidiary methods, if there are some, getting as a result "main" object
-        Object object = methodDescriptor.invokeSubsidiaryMethods(methodDescriptor.isCollectionAsObjectMethod() ? collection : this, 
-                            randomDataGenerator.generateRandomInt(indexUpperLimit()));
-/*
-        if (object instanceof ArrayList && methodDescriptor.getFullMethodName() == "iterator.remove") {
-            Iterator it = ((ArrayList)object).iterator();
-            object = ((ArrayList)object).iterator();
-        }
-*/
+        Object object = methodDescriptor.invokeSubsidiaryMethods(methodDescriptor.isCollectionAsObjectMethod() ? collection : this,
+                randomDataGenerator.generateRandomInt(indexUpperLimit()));
+        // Pre-"main" method - it is necessary, for example, for <Iterator.remove> or <ListIterator.remove> method
+        Method preMethod = methodDescriptor.getWithoutParametersVoidPreMethod(object);
         // "Main" method
         Method method = methodDescriptor.getMethod(object);
-        method.setAccessible(true);
+        MethodArgumentType methodArgumentType = methodDescriptor.getMethodArgumentType();
 
         long[] results = new long[measuringQuantity];
         boolean tryToCallGarbageCollector = false;
         Utils.printMessage(collection, String.format(MEASURE_PERFORMANCE_PATTERN, collectionSize, methodDescriptor.getFullMethodName()));
         for (int i = 0; i < measuringQuantity; i++) {
-            Utils.rePrintLine(String.format(ATTEMPT_PATTERN, i+1));
-            Integer randomInputData = generateRandomInteger(getMethodUpperLimit(methodDescriptor));
+            Utils.rePrintLine(String.format(ATTEMPT_PATTERN, i + 1));
+            // Pre-"main" method - it is necessary, for example, for <Iterator.remove> or <ListIterator.remove> method
+            if (preMethod != null) {
+                SelfDescribingObjectService.invokeMethod(object, preMethod);
+            }
+            // "Main" method
             try {
-                switch (methodDescriptor.getMethodArgumentType()) {
+                switch (methodArgumentType) {
                     case NO_ARGUMENTS:
                         results[i] = ExecutionTimeMeasurer.getNanoTime(object, method);
                         break;
 
                     case ONE_OBJECT:
-                        results[i] = ExecutionTimeMeasurer.getNanoTime(object, method, randomInputData);
-                        break;
-
                     case ONE_INT:
-                        results[i] = ExecutionTimeMeasurer.getNanoTime(object, method, randomInputData.intValue());
+                        results[i] = ExecutionTimeMeasurer.getNanoTime(object, method,
+                                generateRandomInteger(getMethodUpperLimit(methodDescriptor)));
                         break;
 
                     case ONE_INT_AND_ONE_OBJECT:
                         results[i] = ExecutionTimeMeasurer.getNanoTime(object, method,
-                                randomDataGenerator.generateRandomInt(indexUpperLimit()), randomInputData);
-                        break;
+                                randomDataGenerator.generateRandomInt(indexUpperLimit()),
+                                generateRandomInteger(getMethodUpperLimit(methodDescriptor)));
                 }
-
                 if (tryToCallGarbageCollector) {
                     // Try to free unused resources if it necessary
                     System.gc();
@@ -167,6 +161,6 @@ public class CollectionPerformanceMeter {
         }
         Utils.printDoneMessage();
 
-        return (long)(Arrays.stream(results).average().getAsDouble());
+        return (long) (Arrays.stream(results).average().getAsDouble());
     }
 }

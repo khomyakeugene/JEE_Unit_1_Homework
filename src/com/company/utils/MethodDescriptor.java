@@ -125,13 +125,8 @@ public class MethodDescriptor {
     }
     
     public Object invokeSubsidiaryMethods(Object object, Integer argument) {
-        // Execute all subsidiary methods, getting as a result "main" object
-  //      Object startObject = object;
         for (int i = 0; i < subsidiaryMethodNames.length; i++) {
             object = subsidiaryMethodArgumentTypes[i].invokeMethod(object, subsidiaryMethodNames[i], argument);
-            // return object;
- //           Iterator<Integer> it = ((ArrayList<Integer>)(startObject )).iterator();
-   //         return it;
         }
 
         return object;

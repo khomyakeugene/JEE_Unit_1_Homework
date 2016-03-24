@@ -36,6 +36,7 @@ public class SelfDescribingObjectService {
     
     public static Object invokeMethod(Object object, Method method, Object... args) {
         try {
+            method.setAccessible(true);
             return method.invoke(object, args);
         } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();

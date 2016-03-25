@@ -41,7 +41,7 @@ public class TableBuilder {
     }
 
 
-    public static String[] buildTable(String[][] tableData, Utils.AlignmentType alignmentType) {
+    public static String[] buildTable(String[][] tableData, AlignmentType alignmentType) {
         String[] result = new String[(tableData.length<<1) + 1];
 
         // Calc column width supposing that all the lines have the same length
@@ -54,7 +54,7 @@ public class TableBuilder {
             result[k] = COLUMN_CHARACTER.toString();
             // By columns
             for (int j = 0; j < tableData[i].length; j++) {
-                result[k] += COLUMN_FIELD + ((i == 0 || j == 0) ? Utils.AlignmentType.LEFT : alignmentType).
+                result[k] += COLUMN_FIELD + ((i == 0 || j == 0) ? AlignmentType.LEFT : alignmentType).
                         alignString(tableData[i][j], columnWidth[j]) + COLUMN_FIELD + COLUMN_CHARACTER;
             }
         }

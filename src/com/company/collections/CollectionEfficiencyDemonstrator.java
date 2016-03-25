@@ -166,7 +166,7 @@ public class CollectionEfficiencyDemonstrator {
 
     private void showAndSave(int collectionSize) {
         // Prepare result text table
-        String[] table = TableBuilder.buildTable(prepareTableData(collectionSize), Utils.AlignmentType.RIGHT);
+        String[] table = TableBuilder.buildTable(prepareTableData(collectionSize), AlignmentType.RIGHT);
 
         // Show to screen
         showToScreen(table);
@@ -174,7 +174,7 @@ public class CollectionEfficiencyDemonstrator {
         writeToFile(getFileName(collectionSize), table);
     }
 
-    public void oneSizeDemonstrate(int collectionSize, int measuringQuantity) {
+    private void oneSizeDemonstrate(int collectionSize, int measuringQuantity) {
         oneSizeCalculate(collectionSize, measuringQuantity);
         showAndSave(collectionSize);
     }

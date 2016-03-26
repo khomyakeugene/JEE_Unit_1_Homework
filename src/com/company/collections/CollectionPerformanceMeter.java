@@ -5,6 +5,7 @@ import com.company.utils.*;
 import java.lang.reflect.Method;
 import java.util.AbstractCollection;
 import java.util.Arrays;
+import java.util.OptionalDouble;
 
 /**
  * Created by Yevgen on 19.03.2016 as a part of the project "JEE_Homework_1".
@@ -161,6 +162,7 @@ public class CollectionPerformanceMeter {
         }
         Utils.printDoneMessage();
 
-        return (long) (Arrays.stream(results).average().getAsDouble());
+        OptionalDouble optionalDoubleResult = Arrays.stream(results).average();
+        return optionalDoubleResult.isPresent() ? (long)optionalDoubleResult.getAsDouble() : -1L;
     }
 }

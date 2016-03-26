@@ -44,7 +44,7 @@ public class MethodDescriptor {
     public void setFullMethodName(String fullMethodName) {
         String[] mn = fullMethodName.split(METHOD_NAME_REGEX_DELIMITER);
         subsidiaryMethodNames = Arrays.copyOf(mn, mn.length-1);
-        
+
         this.fullMethodName = fullMethodName;
         this.methodName = mn[mn.length-1];
     }
@@ -63,10 +63,10 @@ public class MethodDescriptor {
 
     public void setMethodArgumentType(MethodArgumentType[] methodArgumentType) {
         subsidiaryMethodArgumentTypes = Arrays.copyOf(methodArgumentType, methodArgumentType.length-1);
-        
+
         this.methodArgumentType = methodArgumentType[methodArgumentType.length-1];
     }
-    
+
     public Method getMethod(Object object) {
         return getMethodArgumentType().getMethod(object, getMethodName());
     }

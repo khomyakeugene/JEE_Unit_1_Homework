@@ -46,10 +46,11 @@ public class CollectionPerformanceMeasurer {
     }
 
     public void addMethodDescriptor(String methodName,
-                                    MethodArgumentType[] methodArgumentType,
+                                    MethodArgumentType methodArgumentType,
                                     boolean useCollectionAsObjectMethod,
                                     boolean needDataPrePopulate) {
-        addMethodDescriptor(methodName,null, methodArgumentType, useCollectionAsObjectMethod, needDataPrePopulate);
+        addMethodDescriptor(methodName, null, new MethodArgumentType[] {methodArgumentType}, useCollectionAsObjectMethod,
+                needDataPrePopulate);
     }
 
     public void addMethodDescriptor(String methodName,
@@ -63,6 +64,16 @@ public class CollectionPerformanceMeasurer {
                                     MethodArgumentType[] methodArgumentType,
                                     boolean needDataPrePopulate) {
         addMethodDescriptor(methodName, null, methodArgumentType, needDataPrePopulate);
+    }
+
+    public void addMethodDescriptor(String methodName,
+                                    MethodArgumentType methodArgumentType,
+                                    boolean needDataPrePopulate) {
+        addMethodDescriptor(methodName, null, new MethodArgumentType[] {methodArgumentType}, needDataPrePopulate);
+    }
+
+    public void addMethodDescriptor(String methodName, MethodArgumentType methodArgumentType) {
+        addMethodDescriptor(methodName, methodArgumentType, true);
     }
 
     public String getCollectionName() {

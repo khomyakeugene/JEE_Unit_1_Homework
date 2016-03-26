@@ -27,6 +27,10 @@ public class CollectionPerformanceMeter {
         setMeasuringQuantity(measuringQuantity);
     }
 
+    public CollectionPerformanceMeter(int collectionSize, int measuringQuantity) {
+        this(null, collectionSize, measuringQuantity);
+    }
+
     public CollectionPerformanceMeter() {
         this(null, 0, 0);
     }
@@ -164,5 +168,10 @@ public class CollectionPerformanceMeter {
 
         OptionalDouble optionalDoubleResult = Arrays.stream(results).average();
         return optionalDoubleResult.isPresent() ? (long)optionalDoubleResult.getAsDouble() : -1L;
+    }
+
+    public long measurePerformance(AbstractCollection<Integer> collection,
+                                   MethodDescriptor methodDescriptor) {
+        return measurePerformance(collection, methodDescriptor, this.collectionSize, this.measuringQuantity);
     }
 }

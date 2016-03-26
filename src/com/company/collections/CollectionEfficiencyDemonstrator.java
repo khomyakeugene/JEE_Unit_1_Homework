@@ -105,7 +105,8 @@ public class CollectionEfficiencyDemonstrator {
     }
 
     private void oneSizeCalculate(int collectionSize, int measuringQuantity) {
-        CollectionPerformanceMeter collectionPerformanceMeter = new CollectionPerformanceMeter();
+        CollectionPerformanceMeter collectionPerformanceMeter = new CollectionPerformanceMeter(collectionSize, measuringQuantity);
+
         testData.keySet().stream().
                 forEach(c ->
                         testData.get(c).getMethodDescriptorMap().keySet().
@@ -115,7 +116,7 @@ public class CollectionEfficiencyDemonstrator {
                                     String fullMethodName = methodDescriptor.getFullMethodName();
                                     collectionPerformanceMeasurer.setMethodResult(fullMethodName, collectionPerformanceMeter.
                                             measurePerformance(collectionPerformanceMeasurer.getAbstractCollection(),
-                                            methodDescriptor, collectionSize, measuringQuantity));}));
+                                            methodDescriptor));}));
     }
 
     private String[][] prepareTableData(int collectionSize) {

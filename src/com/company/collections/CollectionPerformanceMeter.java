@@ -31,10 +31,6 @@ public class CollectionPerformanceMeter {
         this(null, collectionSize, measuringQuantity);
     }
 
-    public CollectionPerformanceMeter() {
-        this(null, 0, 0);
-    }
-
     public void setCollectionSize(int collectionSize) {
         this.collectionSize = collectionSize;
 

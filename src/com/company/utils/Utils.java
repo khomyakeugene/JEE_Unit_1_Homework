@@ -9,7 +9,6 @@ import java.util.Arrays;
 public class Utils {
     public static final String DONE_MESSAGE = "done";
     public final static String MESSAGE_WITH_PREFIX_PATTERN = "<%s>: %s";
-    public final static String EXCEPTION_MESSAGE_PATTERN = "<%s>: %s";
 
     public static void printLine(String message) {
         System.out.print(message);

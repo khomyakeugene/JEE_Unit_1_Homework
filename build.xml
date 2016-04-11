@@ -3,7 +3,9 @@
     <property name="src.dir" value="scr"/>
     <property name="build.dir" value="build"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="jar.dir" value="${build.dir}/jar"/>
     <property name="main-class" value="com.company.Main"/>
+    <property name="jar.name" value="${jar.dir}/${ant.project.name}.jar"/>
 
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -15,6 +17,20 @@
     </target>
 
     <target name="jar" depends="compile">
-
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.name}" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Mail-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
     </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.name}"/>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+
+    <target name="main" depends="clean,run"/>
+
 </project>

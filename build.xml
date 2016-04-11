@@ -1,0 +1,19 @@
+<project name="JEE_Unit_1_Homework" basedir=".">
+
+    <property name="src.dir" value="scr"/>
+    <property name="build.dir" value="build"/>
+    <property name="classes.dir" value="${build.dir}/classes"/>
+    <property name="main-class" value="com.company.Main"/>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+
+    </target>
+
+
+</project>

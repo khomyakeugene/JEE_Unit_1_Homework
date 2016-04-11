@@ -1,11 +1,14 @@
 <project name="JEE_Unit_1_Homework" basedir="." default="main">
 
-    <property name="src.dir" value="scr"/>
+    <property name="src.dir" value="src"/>
     <property name="build.dir" value="build"/>
+    <property name="deploy.dir" value="deploy"/>
     <property name="classes.dir" value="${build.dir}/classes"/>
     <property name="jar.dir" value="${build.dir}/jar"/>
     <property name="main-class" value="com.company.Main"/>
-    <property name="jar.name" value="${jar.dir}/${ant.project.name}.jar"/>
+    <property name="jar.name" value="${ant.project.name}.jar"/>
+    <property name="build.jar.name" value="${jar.dir}/${jar.name}.jar"/>
+    <property name="deploy.name" value="${deploy.dir}/${jar.name}.jar"/>
 
     <target name="clean">
         <delete dir="${build.dir}"/>
@@ -18,19 +21,22 @@
 
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.name}" basedir="${classes.dir}">
+        <jar destfile="${build.jar.name}" basedir="${classes.dir}">
             <manifest>
-                <attribute name="Mail-Class" value="${main-class}"/>
+                <attribute name="Main-Class" value="${main-class}"/>
             </manifest>
         </jar>
     </target>
 
-    <target name="run" depends="jar">
-        <java jar="${jar.name}"/>
+    <target name="deploy" depends="jar">
+        <delete dir="${deploy.dir}"/>
+        <mkdir dir="${deploy.dir}"/>
+        <copy file="${build.jar.name}" todir="${deploy.dir}"/>
     </target>
 
-    <target name="clean-build" depends="clean,jar"/>
+    <target name="run" depends="deploy,clean">
+        <java jar="${deploy.name}" fork="true"/>
+    </target>
 
     <target name="main" depends="clean,run"/>
-
 </project>

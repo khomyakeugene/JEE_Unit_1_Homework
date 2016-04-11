@@ -1,4 +1,4 @@
-<project name="JEE_Unit_1_Homework" basedir=".">
+<project name="JEE_Unit_1_Homework" basedir="." default="main">
 
     <property name="src.dir" value="scr"/>
     <property name="build.dir" value="build"/>

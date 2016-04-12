@@ -11,6 +11,7 @@
     <property name="deploy.name" value="${deploy.dir}/${jar.name}.jar"/>
 
     <target name="clean">
+        <delete dir="${jar.dir}"/>
         <delete dir="${build.dir}"/>
     </target>
 
@@ -32,9 +33,10 @@
         <delete dir="${deploy.dir}"/>
         <mkdir dir="${deploy.dir}"/>
         <copy file="${build.jar.name}" todir="${deploy.dir}"/>
+        <antcall target="clean"/>
     </target>
 
-    <target name="run" depends="deploy,clean">
+    <target name="run" depends="clean,deploy">
         <java jar="${deploy.name}" fork="true"/>
     </target>
 

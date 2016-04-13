@@ -17,7 +17,7 @@
 
     <target name="compile" depends="clean">
         <mkdir dir="${classes.dir}"/>
-        <javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.8" target="1.8"/>
+        <javac srcdir="${src.dir}" destdir="${classes.dir}" source="1.8" target="1.8" includeantruntime="false"/>
     </target>
 
     <target name="jar" depends="compile">
@@ -36,7 +36,7 @@
         <antcall target="clean"/>
     </target>
 
-    <target name="run" depends="clean,deploy">
+    <target name="run" depends="deploy">
         <java jar="${deploy.name}" fork="true"/>
     </target>
 

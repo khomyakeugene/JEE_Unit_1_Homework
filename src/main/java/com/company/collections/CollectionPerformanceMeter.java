@@ -56,7 +56,7 @@ public class CollectionPerformanceMeter {
         }
     }
 
-    private void populateCollection() {
+    public void populateCollection() {
         collection.clear();
         collection.addAll(Arrays.asList(sourceData));
     }

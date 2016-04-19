@@ -40,14 +40,6 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.4.0</version>
-                <executions>
-                    <execution>
-                        <id>Main-execution</id>
-                        <goals>
-                            <goal>exec</goal>
-                        </goals>
-                    </execution>
-                </executions>
                 <configuration>
                     <workingDirectory>${project.build.directory}</workingDirectory>
                     <executable>java</executable>
@@ -56,6 +48,14 @@
                     </arguments>
                     <mainClass>${main.class}</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>Main-execution</id>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
